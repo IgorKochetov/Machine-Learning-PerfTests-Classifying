@@ -24,7 +24,9 @@ namespace NetFest_NN
 
 		public double[][] Outputs { get; set; }
 
-		public void Normalize()
+	    public int[] ActualClasses { get; set; }
+
+	    public void Normalize()
 		{
 			for (int i = 0; i < Inputs.Length; i++)
 			{
@@ -65,6 +67,7 @@ namespace NetFest_NN
 			{
 				Inputs = new double[rows.Length][],
 				Outputs = new double[rows.Length][],
+                ActualClasses = new int[rows.Length],
 			};
 
 			var classifications = DetermineClassifications(classificationColumn, rows);
@@ -73,6 +76,12 @@ namespace NetFest_NN
 			{
 				data.Inputs[i] = new double[classificationColumn != ClassificationColumn.None ? columnCount -1 : columnCount];
 				data.Outputs[i] = new double[classifications];
+			    if (classificationColumn != ClassificationColumn.None)
+			    {
+			        data.ActualClasses[i] = classificationColumn == ClassificationColumn.First
+			            ? (int) rows[i][0]
+			            : (int) rows[i][columnCount - 1];
+			    }
 
 				for (int j = 0; j < columnCount; j++)
 				{
