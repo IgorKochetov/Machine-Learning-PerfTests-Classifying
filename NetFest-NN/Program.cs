@@ -27,7 +27,7 @@ namespace NetFest_NN
             var activationFunction = new SigmoidFunction(sigmoidAlphaValue);
             var network = new ActivationNetwork(activationFunction, inputsCount, neuronsCount);
             network.Randomize();
-            var teacher = new BackPropagationLearning(network)
+            var teacher = new ResilientBackpropagationLearning(network)
             {
                 LearningRate = learningRate,
             };
