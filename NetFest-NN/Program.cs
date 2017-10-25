@@ -24,10 +24,10 @@ namespace NetFest_NN
             var layersCount = new[] { inputsCount }.Concat(neuronsCount).ToArray();
 
             // construct the network and teacher
-            var activationFunction = new BipolarSigmoidFunction(sigmoidAlphaValue);
+            var activationFunction = new SigmoidFunction(sigmoidAlphaValue);
             var network = new ActivationNetwork(activationFunction, inputsCount, neuronsCount);
             network.Randomize();
-            var teacher = new ResilientBackpropagationLearning(network)
+            var teacher = new BackPropagationLearning(network)
             {
                 LearningRate = learningRate,
             };
